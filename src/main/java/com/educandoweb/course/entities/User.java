@@ -9,12 +9,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// Informando que a classe é uma entidade // @Entity
+// Alterando o nome padrao da tabela de user para tb_user // @Table
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	// Informando qual sera a chave primaria // @Id
+	// Informando que sera auto-incrementavel // @GeneratedValue
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;	

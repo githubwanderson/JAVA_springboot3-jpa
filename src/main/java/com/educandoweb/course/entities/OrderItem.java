@@ -16,7 +16,9 @@ public class OrderItem implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	// chave composta
+	/**
+	 * Chave composta @EmbeddedId
+	 */
 	@EmbeddedId
 	private OrderItemPK id = new OrderItemPK();
 	
@@ -60,7 +62,7 @@ public class OrderItem implements Serializable{
 	@JsonIgnore
 	public void setOrder(Order order) {
 		id.setOrder(order);
-	}
+	}	
 	
 	public Product getProduct() {
 		return id.getProduct();

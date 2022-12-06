@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,14 +31,21 @@ public class Product implements Serializable {
 	private Double price;
 	private String imgUrl;
 
-	// Utilizando o Set para garantir que não havera produto com mais de uma
-	// ocorrencia da mesma categoria
-	// Define e ja instancia para garantir que não ficara vazia
-	// @JoinTable recebe o nome da tabela de associação e o nome das colunas das
-	// primary keys
+	/**
+	 * Utilizando o Set para garantir que não havera produto com mais de uma ocorrencia da mesma categoria
+	 * Define o obj e ja instancia para garantir que não ficara vazio
+	 * @JoinTable recebe o nome da tabela de associação e o nome das colunas das primary keys
+	 *  
+	 */
 	@ManyToMany
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
+	
+	/**
+	 * aula311
+	 */
+	@OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> items = new HashSet<>();
 
 	public Product() {
 	}
@@ -90,6 +100,15 @@ public class Product implements Serializable {
 
 	public Set<Category> getCategory() {
 		return categories;
+	}
+	
+	@JsonIgnore
+	public Set<Order> getOrders(){
+		Set<Order> set = new HashSet<>();
+		for(OrderItem x : items) {
+			set.add(x.getOrder());
+		}
+		return set;
 	}
 
 	@Override

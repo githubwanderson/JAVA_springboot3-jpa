@@ -2,7 +2,9 @@ package com.educandoweb.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.educandoweb.course.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,21 +28,34 @@ public class Order implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	// Add na aula 305
+	/**
+	 * aula305
+	 */
 	private Integer orderStatus;
 	
-	// Instant JAVA8+ // substitui a class Date()
-	// Garantindo que o instante (data) seja mostrado no formato de string padrao do iso8601 // @JsonFormat
+	/**
+	 * Instant JAVA8+ // substitui a class Date()
+	 * Garantindo que o instante (data) seja mostrado no formato de string padrao do iso8601 // @JsonFormat
+	 */
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 
-	// Associamento entre classes
-	// Uma ordem tem um cliente
-	// Informando que é uma chave estrangeira Muitos para um // @ManyToOne
-	// Informando o nome da coluna join cliente // @JoinColumn(name = "cliente_id")
+	/**
+	 * Associamento entre classes
+	 * Uma ordem tem um cliente
+	 * Informando que é uma chave estrangeira Muitos para um // @ManyToOne
+	 * Informando o nome da coluna join cliente // @JoinColumn(name = "cliente_id")
+	 */
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private User client;
+	
+	/**
+	 * aula310
+	 * pegando os itens do pedido "Order"
+	 */	
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> items = new HashSet<>();
 	
 	public Order() {
 	}
@@ -81,6 +97,10 @@ public class Order implements Serializable{
 
 	public void setOrderStatus(OrderStatus orderStatus) {
 		if(orderStatus!=null) this.orderStatus = orderStatus.getCode();
+	}
+	
+	public Set<OrderItem> getItems(){
+		return items;
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +48,7 @@ public class UserResource {
 	 * informando que é uma requisição do tipo GET // @GetMapping
 	 * e que recebe um paramentro do tipo id @GetMapping(value = "/{id}")
 	 * Para ser reconhecida como uma variavel da URL // @PathVariable
+	 * GET
 	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id){
@@ -56,7 +58,7 @@ public class UserResource {
 	
 	/**
 	 * metodo responsavel por inserir no DB
-	 * utilizando o POST
+	 * POST
 	 */
 	@PostMapping
 	public ResponseEntity<User> insert(@RequestBody User obj){ // Informando que o obj chegara na forma JSON @RequestBody
@@ -74,11 +76,22 @@ public class UserResource {
 	
 	/**
 	 * metodo responsavel por deletar no DB
+	 * DELETE
 	 */
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build(); // Retorna uma resposta vazia cod http 204
+	}
+	
+	/**
+	 * metodo responsavel por atualizar
+	 * PUT
+	 */
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj){
+		obj = service.update(id, obj);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	

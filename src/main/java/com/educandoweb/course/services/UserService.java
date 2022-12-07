@@ -41,4 +41,22 @@ public class UserService {
 		repository.deleteById(id);
 	}
 	
+	/**
+	 * aula316
+	 * update
+	 */
+	public User update(Long id, User obj) {
+		User entity = repository.getReferenceById(id); // Não busca imediatamente o obj, apenas prepara
+		updateData(entity, obj); // Line54 // Atualizar os dados do entity com os dados do obj
+		return repository.save(entity); // salvar
+	}
+
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+	}
+	
+	
+	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +46,7 @@ public class UserResource {
 	/**
 	 * informando que é uma requisição do tipo GET // @GetMapping
 	 * e que recebe um paramentro do tipo id @GetMapping(value = "/{id}")
-	 * e que esse paramentro é @PathVariable Long id
+	 * Para ser reconhecida como uma variavel da URL // @PathVariable
 	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id){
@@ -54,7 +55,7 @@ public class UserResource {
 	}
 	
 	/**
-	 * metodo responsavel por inserir User no BD
+	 * metodo responsavel por inserir no DB
 	 * utilizando o POST
 	 */
 	@PostMapping
@@ -70,6 +71,16 @@ public class UserResource {
 				.toUri(); // covertendo em obj uri
 		return ResponseEntity.created(uri).body(obj); // created: Infomando que inserimos um novo recurso para resposta do http ser  igual a 201
 	}
+	
+	/**
+	 * metodo responsavel por deletar no DB
+	 */
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		service.delete(id);
+		return ResponseEntity.noContent().build(); // Retorna uma resposta vazia cod http 204
+	}
+	
 	
 	
 }

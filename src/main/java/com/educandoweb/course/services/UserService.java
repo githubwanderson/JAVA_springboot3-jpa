@@ -27,11 +27,18 @@ public class UserService {
 	
 	/**
 	 * aula314
-	 * @param obj
-	 * @return
+	 * insert
 	 */
 	public User insert(User obj) {
 		return repository.save(obj);
+	}
+	
+	/**
+	 * aula315
+	 * delete
+	 */
+	public void delete(Long id) {
+		repository.deleteById(id);
 	}
 	
 }

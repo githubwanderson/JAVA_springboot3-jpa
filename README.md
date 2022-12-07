@@ -10,3 +10,6 @@ UML
 
 ![image](https://user-images.githubusercontent.com/106672970/205638765-de37a38c-7d7f-444e-989f-2d63453f5caa.png)
 
+ESTRUTURA
+
+![2022-12-07 17 22 24](https://user-images.githubusercontent.com/106672970/206287665-fd608c4f-3ab2-40d7-ba0b-5243862ca39c.jpg)

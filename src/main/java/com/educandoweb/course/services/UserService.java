@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.educandoweb.course.entities.User;
 import com.educandoweb.course.repositories.UserRepository;
+import com.educandoweb.course.services.exceptions.ResourceNotFoundException;
 
 // Informando que essa classe é um componente do spring // @Component @Service @Repository
 @Service
@@ -22,7 +23,7 @@ public class UserService {
 		// Optional JAVA8+
 		Optional<User> obj = repository.findById(id);
 		// Pegar o objeto dentro do Optional obj
-		return obj.get();
+		return obj.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 	
 	/**

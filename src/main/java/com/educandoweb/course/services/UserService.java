@@ -25,4 +25,13 @@ public class UserService {
 		return obj.get();
 	}
 	
+	/**
+	 * aula314
+	 * @param obj
+	 * @return
+	 */
+	public User insert(User obj) {
+		return repository.save(obj);
+	}
+	
 }

@@ -1,6 +1,6 @@
 # SpringBoot3 JPA
 
-298. Projeto du curso de Java: Web services com Spring Boot e JPA / Hibernate
+298. Projeto do curso de Java: Web services com Spring Boot e JPA / Hibernate
 
 Camadas Lógicas
 

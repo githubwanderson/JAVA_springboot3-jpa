@@ -1,4 +1,4 @@
-# SpringBoot3 JPA
+# SpringBoot JPA
 
 298. Projeto do curso de Java: Web services com Spring Boot e JPA / Hibernate
 
